@@ -104,12 +104,14 @@ export function deriveAlerts(hourly: THourlyAlertInput): TAlert[] {
     alerts.push(createAlert('STORM', start, end))
   }
 
-  const hasHeavyRain = hourly.precipitation_probability.some((probability: number, index: number): boolean => {
-    return (
-      probability >= ALERT_THRESHOLDS.HEAVY_RAIN.precipitation_probability &&
-      (hourly.precipitation[index] ?? 0) >= ALERT_THRESHOLDS.HEAVY_RAIN.precipitation
-    )
-  })
+  const hasHeavyRain = hourly.precipitation_probability.some(
+    (probability: number, index: number): boolean => {
+      return (
+        probability >= ALERT_THRESHOLDS.HEAVY_RAIN.precipitation_probability &&
+        (hourly.precipitation[index] ?? 0) >= ALERT_THRESHOLDS.HEAVY_RAIN.precipitation
+      )
+    },
+  )
   if (hasHeavyRain) {
     alerts.push(createAlert('HEAVY_RAIN', start, end))
   }

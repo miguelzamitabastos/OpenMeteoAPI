@@ -15,7 +15,11 @@ export default function GlobalError({ error, reset }: TGlobalErrorProps): JSX.El
         <h1 className="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-100">
           Something went wrong
         </h1>
-        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300" role="alert" aria-live="assertive">
+        <p
+          className="mt-2 text-sm text-slate-700 dark:text-slate-300"
+          role="alert"
+          aria-live="assertive"
+        >
           {error.message}
         </p>
         <button

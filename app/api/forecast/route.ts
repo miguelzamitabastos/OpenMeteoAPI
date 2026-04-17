@@ -53,7 +53,9 @@ function toForecastResponse(source: THourlyForecast): TForecastApiResponse {
   }
 }
 
-export async function GET(request: Request): Promise<NextResponse<TForecastApiResponse | TErrorResponse>> {
+export async function GET(
+  request: Request,
+): Promise<NextResponse<TForecastApiResponse | TErrorResponse>> {
   const coordinates = parseCoordinates(new URL(request.url).searchParams)
   if (coordinates === null) {
     return NextResponse.json(
@@ -85,6 +87,9 @@ export async function GET(request: Request): Promise<NextResponse<TForecastApiRe
 
     return NextResponse.json(toForecastResponse(parsed.data), { status: 200 })
   } catch {
-    return NextResponse.json({ error: 'Forecast service is temporarily unavailable.' }, { status: 503 })
+    return NextResponse.json(
+      { error: 'Forecast service is temporarily unavailable.' },
+      { status: 503 },
+    )
   }
 }

@@ -54,7 +54,6 @@ describe('Hourly forecast mock states', () => {
 
     expect(screen.getByText('Next 24 hours')).toBeInTheDocument()
     expect(screen.getByText('20°C')).toBeInTheDocument()
-
     ;(Date.now as jest.Mock).mockRestore()
   })
 })

@@ -1,9 +1,11 @@
 # 🌦️ Prompt — Weather Portal Full Stack Development
 
 ## Prompt ID
+
 `weather-portal-main`
 
 ## Context Files Required
+
 - `.github/instructions/project.instructions.md`
 - `.github/skills/openmeteo-api.skill.md`
 - `.github/agents/weather-portal-builder.agent.md`
@@ -112,7 +114,7 @@ Implement all required tests in __tests__/ following the three-test strategy.
 ```
 Using the project instructions and OpenMeteo skill, implement the Weather Alerts page.
 
-Page: app/(pages)/alerts/page.tsx  
+Page: app/(pages)/alerts/page.tsx
 API Route: app/api/alerts/route.ts
 Component: app/components/AlertBanner.tsx
 Hook: app/hooks/useAlerts.ts

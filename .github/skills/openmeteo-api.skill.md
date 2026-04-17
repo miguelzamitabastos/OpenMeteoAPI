@@ -1,9 +1,11 @@
 # 🌤️ Skill — Open Meteo API Integration
 
 ## Skill ID
+
 `openmeteo-api-integration`
 
 ## Description
+
 This skill provides the AI agent with precise knowledge of how to integrate,
 validate, transform, and cache data from the **Open Meteo API** within the
 Weather Portal project. Use this skill whenever any task involves fetching,
@@ -14,22 +16,25 @@ processing, or displaying meteorological data.
 ## 📡 API Reference
 
 ### Base URL
+
 ```
 https://api.open-meteo.com/v1/forecast
 ```
 
 ### Required Parameters (always include)
-| Parameter   | Value            | Description                    |
-|-------------|------------------|--------------------------------|
-| `latitude`  | `number`         | Location latitude (e.g., 40.4168) |
-| `longitude` | `number`         | Location longitude (e.g., -3.7038) |
-| `timezone`  | `"auto"`         | Auto-detect timezone from coordinates |
+
+| Parameter   | Value    | Description                           |
+| ----------- | -------- | ------------------------------------- |
+| `latitude`  | `number` | Location latitude (e.g., 40.4168)     |
+| `longitude` | `number` | Location longitude (e.g., -3.7038)    |
+| `timezone`  | `"auto"` | Auto-detect timezone from coordinates |
 
 ---
 
 ## 🔢 Variable Reference by Feature
 
 ### Current Weather (`current=`)
+
 ```
 temperature_2m          → Temperature at 2m in °C
 apparent_temperature    → Feels-like temperature
@@ -43,6 +48,7 @@ is_day                  → 1 = day, 0 = night
 ```
 
 ### 24h Hourly Forecast (`hourly=`)
+
 ```
 temperature_2m
 apparent_temperature
@@ -57,18 +63,19 @@ uv_index
 Always add: `&forecast_days=2` and `&forecast_hours=24`
 
 ### Alerts — Derived Logic
+
 > Open Meteo does not have a native alerts endpoint.
 > Alerts must be **derived** from thresholds applied to the hourly data:
 
 ```typescript
 // Alert thresholds (define as constants in lib/alerts.ts)
 const ALERT_THRESHOLDS = {
-  STORM:         { weathercode: [95, 96, 99] },
-  HEAVY_RAIN:    { precipitation_probability: 80, precipitation: 10 },
-  STRONG_WIND:   { windspeed_10m: 50 },          // km/h
-  EXTREME_UV:    { uv_index: 8 },
-  LOW_VISIBILITY:{ visibility: 1000 },            // metres
-  FROST:         { temperature_2m: 2 },           // °C
+  STORM: { weathercode: [95, 96, 99] },
+  HEAVY_RAIN: { precipitation_probability: 80, precipitation: 10 },
+  STRONG_WIND: { windspeed_10m: 50 }, // km/h
+  EXTREME_UV: { uv_index: 8 },
+  LOW_VISIBILITY: { visibility: 1000 }, // metres
+  FROST: { temperature_2m: 2 }, // °C
 }
 ```
 
@@ -79,27 +86,30 @@ const ALERT_THRESHOLDS = {
 Implement in `lib/openmeteo.ts` as a lookup map:
 
 ```typescript
-export const WMO_CODES: Record<number, { label: string; icon: string; severity: 'low' | 'medium' | 'high' }> = {
-  0:  { label: 'Clear sky',            icon: '☀️',  severity: 'low' },
-  1:  { label: 'Mainly clear',         icon: '🌤️', severity: 'low' },
-  2:  { label: 'Partly cloudy',        icon: '⛅',  severity: 'low' },
-  3:  { label: 'Overcast',             icon: '☁️',  severity: 'low' },
-  45: { label: 'Foggy',               icon: '🌫️', severity: 'medium' },
-  48: { label: 'Icy fog',             icon: '🌫️', severity: 'medium' },
-  51: { label: 'Light drizzle',       icon: '🌦️', severity: 'low' },
-  53: { label: 'Moderate drizzle',    icon: '🌦️', severity: 'low' },
-  55: { label: 'Dense drizzle',       icon: '🌧️', severity: 'medium' },
-  61: { label: 'Slight rain',         icon: '🌧️', severity: 'low' },
-  63: { label: 'Moderate rain',       icon: '🌧️', severity: 'medium' },
-  65: { label: 'Heavy rain',          icon: '🌧️', severity: 'high' },
-  71: { label: 'Slight snow',         icon: '🌨️', severity: 'medium' },
-  73: { label: 'Moderate snow',       icon: '❄️',  severity: 'medium' },
-  75: { label: 'Heavy snow',          icon: '❄️',  severity: 'high' },
-  80: { label: 'Slight showers',      icon: '🌦️', severity: 'low' },
-  81: { label: 'Moderate showers',    icon: '🌧️', severity: 'medium' },
-  82: { label: 'Violent showers',     icon: '⛈️',  severity: 'high' },
-  95: { label: 'Thunderstorm',        icon: '⛈️',  severity: 'high' },
-  96: { label: 'Thunderstorm w/ hail',icon: '⛈️',  severity: 'high' },
+export const WMO_CODES: Record<
+  number,
+  { label: string; icon: string; severity: 'low' | 'medium' | 'high' }
+> = {
+  0: { label: 'Clear sky', icon: '☀️', severity: 'low' },
+  1: { label: 'Mainly clear', icon: '🌤️', severity: 'low' },
+  2: { label: 'Partly cloudy', icon: '⛅', severity: 'low' },
+  3: { label: 'Overcast', icon: '☁️', severity: 'low' },
+  45: { label: 'Foggy', icon: '🌫️', severity: 'medium' },
+  48: { label: 'Icy fog', icon: '🌫️', severity: 'medium' },
+  51: { label: 'Light drizzle', icon: '🌦️', severity: 'low' },
+  53: { label: 'Moderate drizzle', icon: '🌦️', severity: 'low' },
+  55: { label: 'Dense drizzle', icon: '🌧️', severity: 'medium' },
+  61: { label: 'Slight rain', icon: '🌧️', severity: 'low' },
+  63: { label: 'Moderate rain', icon: '🌧️', severity: 'medium' },
+  65: { label: 'Heavy rain', icon: '🌧️', severity: 'high' },
+  71: { label: 'Slight snow', icon: '🌨️', severity: 'medium' },
+  73: { label: 'Moderate snow', icon: '❄️', severity: 'medium' },
+  75: { label: 'Heavy snow', icon: '❄️', severity: 'high' },
+  80: { label: 'Slight showers', icon: '🌦️', severity: 'low' },
+  81: { label: 'Moderate showers', icon: '🌧️', severity: 'medium' },
+  82: { label: 'Violent showers', icon: '⛈️', severity: 'high' },
+  95: { label: 'Thunderstorm', icon: '⛈️', severity: 'high' },
+  96: { label: 'Thunderstorm w/ hail', icon: '⛈️', severity: 'high' },
   99: { label: 'Thunderstorm w/ heavy hail', icon: '⛈️', severity: 'high' },
 }
 ```
@@ -203,14 +213,14 @@ import { currentWeatherFixture, hourlyForecastFixture } from './fixtures'
 export const handlers = [
   http.get('https://api.open-meteo.com/v1/forecast', ({ request }) => {
     const url = new URL(request.url)
-    
+
     if (url.searchParams.has('current')) {
       return HttpResponse.json(currentWeatherFixture)
     }
     if (url.searchParams.has('hourly')) {
       return HttpResponse.json(hourlyForecastFixture)
     }
-    
+
     return HttpResponse.json({ error: 'Unknown request' }, { status: 400 })
   }),
 ]

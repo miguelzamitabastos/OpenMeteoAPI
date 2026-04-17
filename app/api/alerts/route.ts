@@ -35,7 +35,9 @@ function toAlertInput(payload: {
   }
 }
 
-export async function GET(request: Request): Promise<NextResponse<TAlertsApiResponse | TErrorResponse>> {
+export async function GET(
+  request: Request,
+): Promise<NextResponse<TAlertsApiResponse | TErrorResponse>> {
   const coordinates = parseCoordinates(new URL(request.url).searchParams)
   if (coordinates === null) {
     return NextResponse.json(
@@ -67,6 +69,9 @@ export async function GET(request: Request): Promise<NextResponse<TAlertsApiResp
     const alerts = deriveAlerts(toAlertInput(parsed.data))
     return NextResponse.json({ alerts }, { status: 200 })
   } catch {
-    return NextResponse.json({ error: 'Alerts service is temporarily unavailable.' }, { status: 503 })
+    return NextResponse.json(
+      { error: 'Alerts service is temporarily unavailable.' },
+      { status: 503 },
+    )
   }
 }

@@ -48,7 +48,6 @@ describe('HourlyForecast', () => {
     expect(screen.getByLabelText('24 hour forecast list')).toBeInTheDocument()
     expect(screen.getByText(/Sunrise:/i)).toBeInTheDocument()
     expect(screen.getByText(/Rain 70%/i)).toBeInTheDocument()
-
     ;(Date.now as jest.Mock).mockRestore()
   })
 

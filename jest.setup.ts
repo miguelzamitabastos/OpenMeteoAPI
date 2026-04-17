@@ -42,7 +42,10 @@ if (typeof globalThis.Response === 'undefined') {
       this.ok = this.status >= 200 && this.status < 300
     }
 
-    static json(payload: unknown, init?: { status?: number; statusText?: string }): ResponsePolyfill {
+    static json(
+      payload: unknown,
+      init?: { status?: number; statusText?: string },
+    ): ResponsePolyfill {
       return new ResponsePolyfill(payload, init)
     }
 

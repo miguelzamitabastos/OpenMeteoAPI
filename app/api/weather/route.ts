@@ -27,7 +27,9 @@ function toWeatherResponse(source: TCurrentWeather): TWeatherApiResponse {
   }
 }
 
-export async function GET(request: Request): Promise<NextResponse<TWeatherApiResponse | TErrorResponse>> {
+export async function GET(
+  request: Request,
+): Promise<NextResponse<TWeatherApiResponse | TErrorResponse>> {
   const coordinates = parseCoordinates(new URL(request.url).searchParams)
   if (coordinates === null) {
     return NextResponse.json(
@@ -56,6 +58,9 @@ export async function GET(request: Request): Promise<NextResponse<TWeatherApiRes
 
     return NextResponse.json(toWeatherResponse(parsed.data), { status: 200 })
   } catch {
-    return NextResponse.json({ error: 'Weather service is temporarily unavailable.' }, { status: 503 })
+    return NextResponse.json(
+      { error: 'Weather service is temporarily unavailable.' },
+      { status: 503 },
+    )
   }
 }

@@ -31,7 +31,9 @@ export default function ForecastPage(): JSX.Element {
             </section>
           ) : null}
 
-          {forecastQuery.data !== undefined ? <HourlyForecast forecast={forecastQuery.data} /> : null}
+          {forecastQuery.data !== undefined ? (
+            <HourlyForecast forecast={forecastQuery.data} />
+          ) : null}
         </div>
       </section>
     </main>

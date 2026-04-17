@@ -9,7 +9,8 @@ interface TAlertBannerProps {
 
 const SEVERITY_STYLES: Record<TAlert['severity'], string> = {
   HIGH: 'border-weather-high/50 bg-red-50 text-red-900 dark:bg-red-950/40 dark:text-red-100',
-  MEDIUM: 'border-weather-medium/50 bg-amber-50 text-amber-900 dark:bg-amber-950/40 dark:text-amber-100',
+  MEDIUM:
+    'border-weather-medium/50 bg-amber-50 text-amber-900 dark:bg-amber-950/40 dark:text-amber-100',
   LOW: 'border-weather-low/50 bg-sky-50 text-sky-900 dark:bg-sky-950/40 dark:text-sky-100',
 }
 
@@ -63,7 +64,8 @@ export function AlertBanner({ alerts }: TAlertBannerProps): JSX.Element {
                 </p>
                 <h3 className="text-lg font-semibold">{alert.title}</h3>
                 <p className="text-sm opacity-85">
-                  {new Date(alert.validFrom).toLocaleString()} - {new Date(alert.validUntil).toLocaleString()}
+                  {new Date(alert.validFrom).toLocaleString()} -{' '}
+                  {new Date(alert.validUntil).toLocaleString()}
                 </p>
               </div>
               <div className="flex gap-2">

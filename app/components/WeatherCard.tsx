@@ -1,5 +1,10 @@
 import type { TWeatherApiResponse } from '@/app/lib/schemas/openmeteo.schema'
-import { formatDateTime, formatTemperature, formatWindDirection, WMO_CODES } from '@/app/lib/formatters'
+import {
+  formatDateTime,
+  formatTemperature,
+  formatWindDirection,
+  WMO_CODES,
+} from '@/app/lib/formatters'
 import { WeatherIcon } from '@/app/components/WeatherIcon'
 
 interface TWeatherCardProps {
@@ -8,13 +13,20 @@ interface TWeatherCardProps {
 
 export function WeatherCard({ weather }: TWeatherCardProps): JSX.Element {
   const code = weather.current.weatherCode
-  const decoded = WMO_CODES[code] ?? { label: 'Unknown conditions', icon: '🌡️', severity: 'low' as const }
+  const decoded = WMO_CODES[code] ?? {
+    label: 'Unknown conditions',
+    icon: '🌡️',
+    severity: 'low' as const,
+  }
   const backgroundClass = weather.current.isDay
     ? 'bg-gradient-to-br from-sky-100 via-cyan-50 to-amber-50 text-slate-900'
     : 'bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 text-white ring-1 ring-white/20'
 
   return (
-    <article className={`rounded-3xl p-6 shadow-lg ${backgroundClass}`} aria-label="Current weather card">
+    <article
+      className={`rounded-3xl p-6 shadow-lg ${backgroundClass}`}
+      aria-label="Current weather card"
+    >
       <header className="flex items-start justify-between">
         <div>
           <p className="text-sm uppercase tracking-widest opacity-90">Current weather</p>
@@ -35,7 +47,8 @@ export function WeatherCard({ weather }: TWeatherCardProps): JSX.Element {
         <div className="rounded-xl bg-white/55 p-3 backdrop-blur dark:bg-black/35">
           <dt className="opacity-80">Wind</dt>
           <dd className="font-semibold">
-            {Math.round(weather.current.windSpeedKmh)} km/h {formatWindDirection(weather.current.windDirectionDeg)}
+            {Math.round(weather.current.windSpeedKmh)} km/h{' '}
+            {formatWindDirection(weather.current.windDirectionDeg)}
           </dd>
         </div>
         <div className="rounded-xl bg-white/55 p-3 backdrop-blur dark:bg-black/35">

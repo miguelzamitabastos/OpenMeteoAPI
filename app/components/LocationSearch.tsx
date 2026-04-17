@@ -72,7 +72,8 @@ export function LocationSearch({ onLocationSelected }: TLocationSearchProps): JS
 
       <ul className="mt-3 space-y-2">
         {results.map((result) => {
-          const label = result.country !== undefined ? `${result.name}, ${result.country}` : result.name
+          const label =
+            result.country !== undefined ? `${result.name}, ${result.country}` : result.name
           return (
             <li key={`${result.name}-${result.latitude}-${result.longitude}`}>
               <button

@@ -1,6 +1,7 @@
 # Project Guidelines
 
 ## Code Style
+
 - Use TypeScript strict mode in all implementation files. Do not use any.
 - Add explicit return types to functions and exported helpers.
 - Use named exports for components and utilities. Use default exports only for Next.js page files.
@@ -11,6 +12,7 @@
 See full standards in [.github/instructions/project.instructions.md](./instructions/project.instructions.md).
 
 ## Architecture
+
 - Build with Next.js 14 App Router using a BFF pattern:
   - UI pages and hooks call internal API routes under /api.
   - API routes call Open Meteo and return validated, transformed data.
@@ -22,7 +24,9 @@ See architecture and folder expectations in [.github/instructions/project.instru
 See Open Meteo integration details in [.github/skills/openmeteo-api.skill.md](./skills/openmeteo-api.skill.md).
 
 ## Build and Test
+
 When the app scaffold is present, run these checks before completing work:
+
 - Install dependencies: npm install
 - Lint: npm run lint
 - Type check: npm run typecheck
@@ -34,6 +38,7 @@ When the app scaffold is present, run these checks before completing work:
 If scripts differ from the above, prefer package.json scripts as the source of truth and update this file.
 
 ## Conventions
+
 - Every feature should include three test layers: unit, integration, and mock/network-behavior coverage.
 - API routes should return typed error states and avoid exposing raw upstream payloads.
 - Accessibility is required: aria-label for interactive controls, descriptive alt text, and non-color severity indicators.

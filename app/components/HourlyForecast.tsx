@@ -71,12 +71,22 @@ export function HourlyForecast({ forecast }: THourlyForecastProps): JSX.Element 
           <p className="text-sm text-slate-600 dark:text-slate-300">UV peak: {uvPeak.toFixed(1)}</p>
           {forecast.sun !== undefined ? (
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Sunrise: {new Date(forecast.sun.sunrise).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} |
-              Sunset: {new Date(forecast.sun.sunset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              Sunrise:{' '}
+              {new Date(forecast.sun.sunrise).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}{' '}
+              | Sunset:{' '}
+              {new Date(forecast.sun.sunset).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </p>
           ) : null}
         </div>
-        <p className="text-sm text-slate-500 dark:text-slate-300">{Math.round(minTemp)}° to {Math.round(maxTemp)}°</p>
+        <p className="text-sm text-slate-500 dark:text-slate-300">
+          {Math.round(minTemp)}° to {Math.round(maxTemp)}°
+        </p>
       </header>
 
       <ul className="flex gap-3 overflow-x-auto pb-3" aria-label="24 hour forecast list">
@@ -95,15 +105,25 @@ export function HourlyForecast({ forecast }: THourlyForecastProps): JSX.Element 
               }`}
             >
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {new Date(point.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                {new Date(point.time).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                })}
               </p>
-              <p className="mt-2 text-2xl" aria-hidden="true">{weather.icon}</p>
+              <p className="mt-2 text-2xl" aria-hidden="true">
+                {weather.icon}
+              </p>
               <p className="mt-1 text-sm font-semibold">{formatTemperature(point.temperatureC)}</p>
-              <p className={`mt-1 text-xs font-medium ${precipitationClass(point.precipitationProbabilityPercent)}`}>
+              <p
+                className={`mt-1 text-xs font-medium ${precipitationClass(point.precipitationProbabilityPercent)}`}
+              >
                 Rain {Math.round(point.precipitationProbabilityPercent)}%
               </p>
               <div className="mt-3 h-1.5 rounded bg-slate-200 dark:bg-slate-700">
-                <div className={`h-full rounded bg-gradient-to-r from-cyan-500 to-blue-600 ${trendWidthClass(ratio)}`} />
+                <div
+                  className={`h-full rounded bg-gradient-to-r from-cyan-500 to-blue-600 ${trendWidthClass(ratio)}`}
+                />
               </div>
             </li>
           )
